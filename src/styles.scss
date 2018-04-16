@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+  margin: 0;
+  font: 1em/1.4 sans-serif;
+}
+
+body, fluent-acrylic::before {
+  background: url("https://images.unsplash.com/photo-1452723312111-3a7d0db0e024?w=700") center/cover;
+  background-attachment: fixed;
+}
+
+$primary: #3489C3;
+$theme: light;
