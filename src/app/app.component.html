@@ -1,11 +1,21 @@
 <div class="main light">
-  <fluent-acrylic padding opacity="5">
-    Left
+  <fluent-acrylic opacity="7">
+    <fluent-header>Channels</fluent-header>
+    <fluent-nav-view [(selection)]="currentChannel">
+      <fluent-item *ngFor="let channel of channels" [text]="channel.name"></fluent-item>
+    </fluent-nav-view>
   </fluent-acrylic>
-  <fluent-acrylic padding opacity="8">
-    Center
+  <fluent-acrylic opacity="9">
+    <fluent-header size="1" [hasSub]="currentChannel !== -1">Seminar</fluent-header>
+    <fluent-header size="3" *ngIf="currentChannel !== -1">{{channels[currentChannel].name}}</fluent-header>
+    <div class="channel-wrapper" *ngIf="currentChannel !== -1">
+      <fluent-item *ngFor="let message of channels[currentChannel].messages">
+        {{message.text}}
+      </fluent-item>
+    </div>
   </fluent-acrylic>
-  <fluent-acrylic padding opacity="5">
-    Right
+  <fluent-acrylic opacity="7">
+    <fluent-header>People</fluent-header>
+    <fluent-item *ngFor="let person of people">{{person[0]}}</fluent-item>
   </fluent-acrylic>
 </div>

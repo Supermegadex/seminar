@@ -6,5 +6,54 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+  channels = [
+    {
+      name: 'Start',
+      messages: [
+        {
+          text: "Hello",
+          author: {
+            name: "Daniel",
+            email: "delpinothedragon1@hotmail.com"
+          }
+        },
+        {
+          text: "Hey",
+          author: {
+            name: "Daniel",
+            email: "delpinothedragon1@hotmail.com"
+          }
+        }
+      ]
+    },
+    {
+      name: 'Goodbye',
+      messages: [
+        {
+          text: "Whee",
+          author: {
+            name: "Daniel",
+            email: "delpinothedragon1@hotmail.com"
+          }
+        },
+        {
+          text: "Wowza",
+          author: {
+            name: "Daniel",
+            email: "delpinothedragon1@hotmail.com"
+          }
+        }
+      ]
+    }
+  ];
+  currentChannel = -1;
+
+  people = [
+    ["Daniel", "delpinothedragon1@hotmail.com"],
+    ["Ben", "benwingerter01@gmail.com"],
+    ["Aaron", "aaronfilipi@gmail.com"],
+    ["Andy", "andy.noon@hotmail.com"]
+  ];
+
+  constructor() {}
 }

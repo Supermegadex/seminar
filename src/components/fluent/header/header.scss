@@ -1,0 +1,20 @@
+fluent-header {
+  .header-1 {
+    padding: 2rem 3rem;
+    font-size: 2rem;
+  }
+  .header-2 {
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+  }
+  .header-3 {
+    padding: 0 3rem 2rem;
+    margin-top: 0;
+  }
+  @for $i from 1 to 3 {
+    .header-#{$i}.has-subtitle {
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+}

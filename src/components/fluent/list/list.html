@@ -1,0 +1,4 @@
+<div class="wrapper">
+  <!--<ng-content select="fluent-item"></ng-content>-->
+  <fluent-item *ngFor="let item of items; let i = index;" (click)="clickItem(i)" [active]="selection == i">{{item.text}}</fluent-item>
+</div>
