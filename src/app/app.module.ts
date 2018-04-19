@@ -1,5 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { FluentModule } from '../components/fluent/fluent.module';
@@ -11,6 +12,7 @@ import { FluentModule } from '../components/fluent/fluent.module';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     FluentModule
   ],
   providers: [],

@@ -13,6 +13,16 @@
         {{message.text}}
       </fluent-item>
     </div>
+    <input title="Name" [(ngModel)]="name" name="name" placeholder="Name">
+    <input title="Email" [(ngModel)]="email" name="email" type="email" placeholder="Email">
+    <button (click)="login()">Test Login</button><br>
+    <input title="New Server Name" [(ngModel)]="newServerName" name="sn" placeholder="Server Name">
+    <button (click)="create()">Test Create</button><br>
+    <input title="Join Server Id" [(ngModel)]="joinServerId" name="id" placeholder="Server Code">
+    <button (click)="join()">Test Join</button><br>
+    <input title="Send Message" [(ngModel)]="messageText" name="msg" placeholder="Message">
+    <input title="Channel" [(ngModel)]="channelToSendMessage" name="chnl" placeholder="Channel Name">
+    <button (click)="sendMessage()">Test Send Message</button>
   </fluent-acrylic>
   <fluent-acrylic opacity="7">
     <fluent-header>People</fluent-header>
