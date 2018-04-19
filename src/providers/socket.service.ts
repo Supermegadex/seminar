@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { environment } from '../environments/environment';
 import * as io from 'socket.io-client';
 
 @Injectable()
 export class SocketService {
   private socket: SocketIOClient.Socket;
-  public debug = true;
+  public debug = !environment.production;
 
   constructor() {
     this.socket = io(this.debug ? 'http://localhost:3000' : 'https://seminar-api.now.sh');
