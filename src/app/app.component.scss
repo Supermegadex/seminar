@@ -1,11 +1,22 @@
 @keyframes fade-slide-in {
   from {
     opacity: 0;
-    transform: translateY(200px);
+    transform: translateY(10%) scale(1.05, 1.05);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1, 1);
+  }
+}
+
+@keyframes fade-out-back {
+  from {
+    transform: translateY(0) scale(1, 1);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-10%) scale(.9, .9);
+    opacity: 0;
   }
 }
 
@@ -15,7 +26,7 @@
   height: 100vh;
 }
 
-.center {
+.center, .left {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -29,11 +40,49 @@
 }
 
 .start-wrapper {
-  padding: 10px;
+  padding: 0 3rem;
 }
 
 .intro {
   animation: fade-slide-in 500ms ease-in-out;
   position: absolute;
-  width: calc(100% - 20px);
+  width: calc(100% - 6rem);
+  //padding: 0 3rem;
+}
+
+.intro.dismiss {
+  animation: fade-out-back 500ms ease-in-out forwards;
+}
+
+#intro-part-2 {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  grid-gap: 10%;
+}
+
+code {
+  background-color: white;
+  padding: 5px 10px;
+  float: right;
+}
+
+fluent-item {
+  animation: fade-slide-in 500ms ease-in-out;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-content: stretch;
+  align-items: flex-end;
+
+  fluent-input {
+    flex: 1 1 auto;
+  }
+
+  #message {
+    background: var(--app-primary-color, #ccc);
+  }
 }

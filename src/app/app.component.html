@@ -1,27 +1,41 @@
 <div class="main light">
-  <fluent-acrylic opacity="7">
+  <fluent-acrylic opacity="7" class="left">
     <fluent-header>Channels</fluent-header>
     <fluent-nav-view [(selection)]="currentChannel">
       <fluent-item *ngFor="let channel of channels" [text]="channel.name"></fluent-item>
     </fluent-nav-view>
   </fluent-acrylic>
   <fluent-acrylic opacity="9" class="center">
-    <fluent-header size="1" [hasSub]="currentChannel !== -1">{{serverName}}<span style="float:right">{{serverId}}</span></fluent-header>
+    <fluent-header size="1" [hasSub]="currentChannel !== -1">{{serverName}} <code *ngIf="serverId">{{serverId}}</code></fluent-header>
     <fluent-header size="3" *ngIf="currentChannel !== -1">{{channels[currentChannel].name}}</fluent-header>
-    <div class="channel-wrapper" *ngIf="currentChannel !== -1">
+    <div class="channel-wrapper" *ngIf="enableMessages">
       <fluent-item *ngFor="let message of channels[currentChannel].messages">
         {{message.text}}
       </fluent-item>
     </div>
-    <div class="start-wrapper" *ngIf="currentChannel == -1">
-      <div id="into-part-1" class="intro" [ngClass]="introPartOneClass">
-        <fluent-input [(value)]="name" placeholder="Name"></fluent-input>
-        <fluent-input [(value)]="email" placeholder="Email"></fluent-input>
+    <div class="start-wrapper" *ngIf="enableIntro">
+      <div id="intro-part-1" class="intro" [ngClass]="introPartOneClass" *ngIf="partOneEnabled">
+        <p>Hello! Welcome to <i>Seminar</i>, an easy way to have a fast-paced chat. We need your name and email so others know who you are:</p>
+        <fluent-input [(value)]="name" placeholder="Name" autocomplete="given-name"></fluent-input>
+        <fluent-input [(value)]="email" placeholder="Email" type="email"></fluent-input>
         <fluent-button (click)="login()">Log In</fluent-button>
       </div>
+      <div id="intro-part-2" class="intro" [ngClass]="introPartTwoClass" *ngIf="partTwoEnabled">
+        <div class="intro-2-side-left">
+          <fluent-header size="2">Join a Server</fluent-header>
+          <fluent-input placeholder="Server Code" [(value)]="joinServerId"></fluent-input>
+          <fluent-button (click)="join()">Join</fluent-button>
+        </div>
+        <div class="intro-2-side-right">
+          <fluent-header size="2">Create a Server</fluent-header>
+          <fluent-input placeholder="Server Name" [(value)]="newServerName"></fluent-input>
+          <fluent-button (click)="create()">Join</fluent-button>
+        </div>
+      </div>
     </div>
-    <div class="footer" *ngIf="currentChannel !== -1">
-      
+    <div class="footer" *ngIf="enableMessages">
+      <fluent-input placeholder="Message" [(value)]="messageText" [border]="false"></fluent-input>
+      <fluent-button (click)="sendMessage()" id="message">Send</fluent-button>
     </div>
     <div class="test-inputs" hidden>
       <input title="Name" [(ngModel)]="name" name="name" placeholder="Name">

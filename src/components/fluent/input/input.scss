@@ -3,15 +3,17 @@ fluent-input {
     transition: 250ms ease-in-out;
     background-color: white;
     padding: 10px;
+    border: none;
     flex: 1 1 auto;
+    font-family: "Segoe UI", Arial, sans-serif;
   }
 
   input.border {
     border: 2px solid #999;
-    margin: 10px;
+    margin: 10px 0;
   }
-  
-  input:focus {
+
+  input.border:focus {
     border: 2px solid var(--app-primary-color);
   }
 

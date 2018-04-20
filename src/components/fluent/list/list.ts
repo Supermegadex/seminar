@@ -1,9 +1,11 @@
-import {Component, ContentChildren, EventEmitter, Input, Output, QueryList} from '@angular/core';
+import {Component, ContentChildren, EventEmitter, Input, Output, QueryList, ViewEncapsulation} from '@angular/core';
 import {FluentItemComponent} from '../item/item';
 
 @Component({
   selector: 'fluent-nav-view',
-  templateUrl: 'list.html'
+  templateUrl: 'list.html',
+  styleUrls: ['list.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class FluentNavViewComponent {
   @Input() selection = -1;

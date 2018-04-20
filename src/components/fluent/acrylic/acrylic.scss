@@ -27,7 +27,7 @@ fluent-acrylic[padding] {
 
 fluent-acrylic::before {
   transition: 500ms ease-in-out;
-  filter: blur(20px);
+  filter: blur(30px);
   content: "";
   position: absolute;
   left: -30px;

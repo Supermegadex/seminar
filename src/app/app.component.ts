@@ -22,8 +22,13 @@ export class AppComponent implements OnInit {
   channelToSendMessage = "";
   newChannelName = "";
   serverId = "";
+  enableMessages = false;
+  enableIntro = true;
 
   introPartOneClass = "";
+  partOneEnabled = true;
+  introPartTwoClass = "";
+  partTwoEnabled = false;
 
   people = [];
 
@@ -46,8 +51,12 @@ export class AppComponent implements OnInit {
 
   login() {
     this.socket.Login(this.name, this.email).then((token: string) => {
-      console.log(token);
       localStorage.setItem('token', token);
+      this.introPartOneClass = "dismiss";
+      this.partTwoEnabled = true;
+      setTimeout(() => {
+        this.partOneEnabled = false;
+      }, 500);
     }).catch(err => {
       console.log('whoops');
     });
@@ -56,12 +65,16 @@ export class AppComponent implements OnInit {
   create() {
     console.log("create: ", this.newServerName);
     this.socket.Create(this.newServerName).then((data: any) => {
-      console.log(data);
       this.serverId = data.id;
       this.serverName = data.server.name;
-      this.channels = this.formatChannels(data.server.channels);
-      this.people = data.server.members.map(member => [member.name, member.email]);
-      this.currentChannel = 0;
+      this.introPartTwoClass = "dismiss";
+      setTimeout(() => {
+        this.channels = this.formatChannels(data.server.channels);
+        this.people = data.server.members.map(member => [member.name, member.email]);
+        this.currentChannel = 0;
+        this.enableMessages = true;
+        this.enableIntro = false;
+      }, 500);
     }).catch(err => {
       console.log('whoops');
     });
@@ -70,19 +83,25 @@ export class AppComponent implements OnInit {
   join() {
     console.log("join: ", this.joinServerId);
     this.socket.Join(this.joinServerId).then((data: any) => {
-      console.log(data);
       this.serverName = data.name;
-      this.channels = this.formatChannels(data.channels);
-      this.people = data.members.map(member => [member.name, member.email]);
-      this.currentChannel = 0;
+      this.serverId = this.joinServerId;
+      this.introPartTwoClass = "dismiss";
+      setTimeout(() => {
+        this.channels = this.formatChannels(data.channels);
+        this.people = data.members.map(member => [member.name, member.email]);
+        this.currentChannel = 0;
+        this.enableMessages = true;
+        this.enableIntro = false;
+      }, 500);
     }).catch(err => {
       console.log('whoops');
     });
   }
 
   sendMessage() {
-    this.socket.SendMessage(this.messageText, this.channelToSendMessage).then((data: any) => {
+    this.socket.SendMessage(this.messageText, this.channelNames[this.currentChannel]).then((data: any) => {
       this.channels[this.channelNames.indexOf(data.channel)].messages.push(data.message);
+      this.messageText = "";
     }).catch(err => {
       console.log(err);
       console.log('whoops');
