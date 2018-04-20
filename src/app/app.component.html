@@ -5,27 +5,41 @@
       <fluent-item *ngFor="let channel of channels" [text]="channel.name"></fluent-item>
     </fluent-nav-view>
   </fluent-acrylic>
-  <fluent-acrylic opacity="9">
-    <fluent-header size="1" [hasSub]="currentChannel !== -1">Seminar</fluent-header>
+  <fluent-acrylic opacity="9" class="center">
+    <fluent-header size="1" [hasSub]="currentChannel !== -1">{{serverName}}<span style="float:right">{{serverId}}</span></fluent-header>
     <fluent-header size="3" *ngIf="currentChannel !== -1">{{channels[currentChannel].name}}</fluent-header>
     <div class="channel-wrapper" *ngIf="currentChannel !== -1">
       <fluent-item *ngFor="let message of channels[currentChannel].messages">
         {{message.text}}
       </fluent-item>
     </div>
-    <input title="Name" [(ngModel)]="name" name="name" placeholder="Name">
-    <input title="Email" [(ngModel)]="email" name="email" type="email" placeholder="Email">
-    <button (click)="login()">Test Login</button><br>
-    <input title="New Server Name" [(ngModel)]="newServerName" name="sn" placeholder="Server Name">
-    <button (click)="create()">Test Create</button><br>
-    <input title="Join Server Id" [(ngModel)]="joinServerId" name="id" placeholder="Server Code">
-    <button (click)="join()">Test Join</button><br>
-    <input title="Send Message" [(ngModel)]="messageText" name="msg" placeholder="Message">
-    <input title="Channel" [(ngModel)]="channelToSendMessage" name="chnl" placeholder="Channel Name">
-    <button (click)="sendMessage()">Test Send Message</button>
+    <div class="start-wrapper" *ngIf="currentChannel == -1">
+      <div id="into-part-1" class="intro" [ngClass]="introPartOneClass">
+        <fluent-input [(value)]="name" placeholder="Name"></fluent-input>
+        <fluent-input [(value)]="email" placeholder="Email"></fluent-input>
+        <fluent-button (click)="login()">Log In</fluent-button>
+      </div>
+    </div>
+    <div class="footer" *ngIf="currentChannel !== -1">
+      
+    </div>
+    <div class="test-inputs" hidden>
+      <input title="Name" [(ngModel)]="name" name="name" placeholder="Name">
+      <input title="Email" [(ngModel)]="email" name="email" type="email" placeholder="Email">
+      <button (click)="login()">Test Login</button><br>
+      <input title="New Server Name" [(ngModel)]="newServerName" name="sn" placeholder="Server Name">
+      <button (click)="create()">Test Create</button><br>
+      <input title="Join Server Id" [(ngModel)]="joinServerId" name="id" placeholder="Server Code">
+      <button (click)="join()">Test Join</button><br>
+      <input title="Send Message" [(ngModel)]="messageText" name="msg" placeholder="Message">
+      <input title="Channel" [(ngModel)]="channelToSendMessage" name="chnl" placeholder="Channel Name">
+      <button (click)="sendMessage()">Test Send Message</button><br>
+      <input title="New Channel Name" [(ngModel)]="newChannelName" name="newchnl" placeholder="New Channel Name">
+      <button (click)="newChannel()">Test Create New Channel</button>
+    </div>
   </fluent-acrylic>
   <fluent-acrylic opacity="7">
-    <fluent-header>People</fluent-header>
+    <fluent-header>People - {{name}}</fluent-header>
     <fluent-item *ngFor="let person of people">{{person[0]}}</fluent-item>
   </fluent-acrylic>
 </div>

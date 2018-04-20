@@ -1,5 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
+@font-face {
+  font-family: 'Segoe UI';
+  src: url('/assets/fonts/segoeui.eot'); /* IE9 Compat Modes */
+  src: url('/assets/fonts/segoeui.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('/assets/fonts/segoeui.woff2') format('woff2'), /* Super Modern Browsers */
+       url('/assets/fonts/segoeui.woff') format('woff'), /* Pretty Modern Browsers */
+       url('/assets/fonts/segoeui.ttf')  format('truetype'), /* Safari, Android, iOS */
+       url('/assets/fonts/segoeui.svg#svgFontName') format('svg'); /* Legacy iOS */
+}
+
 :root {
   --app-primary-color: #4496CD;
 }
@@ -7,6 +17,7 @@
 body {
   margin: 0;
   font: 1em/1.4 sans-serif;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
 body, fluent-acrylic::before {

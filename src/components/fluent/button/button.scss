@@ -1,0 +1,14 @@
+fluent-button {
+  button {
+    transition: 200ms ease-in-out;
+    margin: 10px;
+    background: #ccc;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 2px;
+  }
+
+  button:hover {
+    outline: 2px solid #7A7A7A;
+  }
+}

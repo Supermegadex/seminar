@@ -63,6 +63,17 @@ export class SocketService {
     });
   }
 
+  CreateChannel(name: string) {
+    return new Promise((resolve, reject) => {
+      this.socket.emit('add-channel', name, (res: boolean, data?: string) => {
+        console.log(res, data);
+        if (res) {
+          resolve(data);
+        }
+      });
+    });
+  }
+
   onNewMessage() {
     return Observable.create(observer => {
       this.socket.on('message', data => {
@@ -74,6 +85,15 @@ export class SocketService {
   onNewMember() {
     return Observable.create(observer => {
       this.socket.on('member', data => {
+        console.log(data);
+        observer.next(data);
+      });
+    });
+  }
+
+  onNewChannel() {
+    return Observable.create(observer => {
+      this.socket.on('channel', data => {
         console.log(data);
         observer.next(data);
       });

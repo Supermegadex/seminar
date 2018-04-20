@@ -1,29 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SocketService } from '../providers/socket.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [SocketService]
+  providers: [SocketService],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit {
-  channels = [
-    {
-      name: 'Start',
-      messages: [
-        {
-          text: "Hello",
-          author: {
-            name: "Daniel",
-            email: "delpinothedragon1@hotmail.com"
-          }
-        }
-      ]
-    }
-  ];
+  channels = [];
   currentChannel = -1;
   channelNames = [];
+  serverName = "Welcome!";
 
   name = "";
   email = "";
@@ -31,6 +20,10 @@ export class AppComponent implements OnInit {
   joinServerId = "";
   messageText = "";
   channelToSendMessage = "";
+  newChannelName = "";
+  serverId = "";
+
+  introPartOneClass = "";
 
   people = [];
 
@@ -44,6 +37,10 @@ export class AppComponent implements OnInit {
 
     this.socket.onNewMember().subscribe(data => {
       this.people.push([data.name, data.email]);
+    });
+
+    this.socket.onNewChannel().subscribe(data => {
+      this.pushChannel(data.name);
     });
   }
 
@@ -60,8 +57,11 @@ export class AppComponent implements OnInit {
     console.log("create: ", this.newServerName);
     this.socket.Create(this.newServerName).then((data: any) => {
       console.log(data);
+      this.serverId = data.id;
+      this.serverName = data.server.name;
       this.channels = this.formatChannels(data.server.channels);
       this.people = data.server.members.map(member => [member.name, member.email]);
+      this.currentChannel = 0;
     }).catch(err => {
       console.log('whoops');
     });
@@ -70,8 +70,11 @@ export class AppComponent implements OnInit {
   join() {
     console.log("join: ", this.joinServerId);
     this.socket.Join(this.joinServerId).then((data: any) => {
+      console.log(data);
+      this.serverName = data.name;
       this.channels = this.formatChannels(data.channels);
       this.people = data.members.map(member => [member.name, member.email]);
+      this.currentChannel = 0;
     }).catch(err => {
       console.log('whoops');
     });
@@ -83,6 +86,23 @@ export class AppComponent implements OnInit {
     }).catch(err => {
       console.log(err);
       console.log('whoops');
+    });
+  }
+
+  newChannel() {
+    this.socket.CreateChannel(this.newChannelName).then((name: any) => {
+      this.pushChannel(name);
+    }).catch(err => {
+      console.log(err);
+      console.log('whoops');
+    });
+  }
+
+  pushChannel(name) {
+    this.channelNames.push(name);
+    this.channels.push({
+      name,
+      messages: []
     });
   }
 
