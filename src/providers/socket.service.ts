@@ -5,18 +5,26 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class SocketService {
-  private socket: SocketIOClient.Socket;
+  static loggedIn = false;
+
+  public socket: SocketIOClient.Socket;
   public debug = !environment.production;
 
   constructor() {
     this.socket = io(this.debug ? 'http://localhost:3000' : 'https://seminar-api.now.sh');
-    console.log(this.socket);
+    this.socket.on('disconnect', () => {
+      if (SocketService.loggedIn) {
+        this.socket.emit('login', {token: localStorage.getItem('token')});
+      }
+    });
   }
 
   Login(name: string, email: string) {
     return new Promise((resolve, reject) => {
       this.socket.emit('login', {name, email}, (res: boolean, token?: string) => {
         if (res) {
+          localStorage.setItem('token', token);
+          SocketService.loggedIn = true;
           resolve(token);
         }
         else {
@@ -85,7 +93,6 @@ export class SocketService {
   onNewMember() {
     return Observable.create(observer => {
       this.socket.on('member', data => {
-        console.log(data);
         observer.next(data);
       });
     });
@@ -94,7 +101,6 @@ export class SocketService {
   onNewChannel() {
     return Observable.create(observer => {
       this.socket.on('channel', data => {
-        console.log(data);
         observer.next(data);
       });
     });

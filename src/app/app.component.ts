@@ -47,19 +47,28 @@ export class AppComponent implements OnInit {
     this.socket.onNewChannel().subscribe(data => {
       this.pushChannel(data.name);
     });
+
+    if (localStorage.getItem('token')) {
+      this.socket.socket.emit('login', {token: localStorage.getItem('token')});
+      this.moveToPart2();
+    }
   }
 
   login() {
     this.socket.Login(this.name, this.email).then((token: string) => {
       localStorage.setItem('token', token);
-      this.introPartOneClass = "dismiss";
-      this.partTwoEnabled = true;
-      setTimeout(() => {
-        this.partOneEnabled = false;
-      }, 500);
+      this.moveToPart2();
     }).catch(err => {
       console.log('whoops');
     });
+  }
+
+  moveToPart2() {
+    this.introPartOneClass = "dismiss";
+    this.partTwoEnabled = true;
+    setTimeout(() => {
+      this.partOneEnabled = false;
+    }, 500);
   }
 
   create() {
@@ -69,8 +78,8 @@ export class AppComponent implements OnInit {
       this.serverName = data.server.name;
       this.introPartTwoClass = "dismiss";
       setTimeout(() => {
-        this.channels = this.formatChannels(data.server.channels);
-        this.people = data.server.members.map(member => [member.name, member.email]);
+        this.channels = data.server.channels;
+        this.people = data.server.people.map(member => [member.name, member.email]);
         this.currentChannel = 0;
         this.enableMessages = true;
         this.enableIntro = false;
@@ -87,11 +96,12 @@ export class AppComponent implements OnInit {
       this.serverId = this.joinServerId;
       this.introPartTwoClass = "dismiss";
       setTimeout(() => {
-        this.channels = this.formatChannels(data.channels);
-        this.people = data.members.map(member => [member.name, member.email]);
+        this.channels = data.channels;
+        this.people = data.people.map(member => [member.name, member.email]);
         this.currentChannel = 0;
         this.enableMessages = true;
         this.enableIntro = false;
+        console.log(this.channels);
       }, 500);
     }).catch(err => {
       console.log('whoops');
