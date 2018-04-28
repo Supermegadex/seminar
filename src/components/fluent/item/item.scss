@@ -14,9 +14,15 @@ fluent-item {
   .fluent-item-content {
     width: 100%;
     transition: 2s ease-in-out scale;
-    :active {
-      transform: scale(.99, .99);
-    }
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: stretch;
+  }
+  .fluent-item-content:active {
+    transform: scale(.99, .99);
   }
   .fluent-item-content.active {
     border-left: 4px solid var(--app-primary-color);

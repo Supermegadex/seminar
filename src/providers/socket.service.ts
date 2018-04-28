@@ -11,10 +11,12 @@ export class SocketService {
   public debug = !environment.production;
 
   constructor() {
-    this.socket = io(this.debug ? 'http://localhost:3000' : 'https://seminar-api.now.sh');
+    this.socket = io(this.debug ? 'localhost:3000' : 'https://seminar-api.now.sh');
     this.socket.on('disconnect', () => {
       if (SocketService.loggedIn) {
-        this.socket.emit('login', {token: localStorage.getItem('token')});
+        this.socket.emit('login-token', localStorage.getItem('token'), (res, data) => {
+          console.log(res, data);
+        });
       }
     });
   }
@@ -26,6 +28,20 @@ export class SocketService {
           localStorage.setItem('token', token);
           SocketService.loggedIn = true;
           resolve(token);
+        }
+        else {
+          reject(false);
+        }
+      });
+    });
+  }
+
+  LoginWithToken(token: string) {
+    return new Promise((resolve, reject) => {
+      this.socket.emit('login-token', token, (res: boolean, user?: any) => {
+        if (res) {
+          SocketService.loggedIn = true;
+          resolve(user.data);
         }
         else {
           reject(false);

@@ -7,6 +7,7 @@ import { FluentItemComponent } from './item/item';
 import { FluentHeaderComponent } from './header/header';
 import { FluentInputComponent } from './input/input';
 import { FluentButtonComponent } from './button/button';
+import { FluentAvatarComponent } from './avatar/avatar';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FluentButtonComponent } from './button/button';
     FluentItemComponent,
     FluentHeaderComponent,
     FluentInputComponent,
-    FluentButtonComponent
+    FluentButtonComponent,
+    FluentAvatarComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { FluentButtonComponent } from './button/button';
     FluentItemComponent,
     FluentHeaderComponent,
     FluentInputComponent,
-    FluentButtonComponent
+    FluentButtonComponent,
+    FluentAvatarComponent
   ]
 })
 export class FluentModule {}

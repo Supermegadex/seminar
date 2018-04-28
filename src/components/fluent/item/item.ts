@@ -4,7 +4,7 @@ import {Component, Input, ViewEncapsulation} from '@angular/core';
   selector: 'fluent-item',
   templateUrl: 'item.html',
   styleUrls: ['item.scss'],
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class FluentItemComponent {
   @Input() active = false;

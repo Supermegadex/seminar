@@ -48,10 +48,19 @@ export class AppComponent implements OnInit {
       this.pushChannel(data.name);
     });
 
+    console.log(localStorage.getItem('token'));
+
     if (localStorage.getItem('token')) {
-      this.socket.socket.emit('login', {token: localStorage.getItem('token')});
-      this.moveToPart2();
-    }
+      console.log("HAI");
+      this.socket.LoginWithToken(localStorage.getItem("token")).then((user: any) => {
+        console.log(user);
+        this.name = user.name;
+        this.email = user.email;
+        this.moveToPart2();
+      }).catch(err => {
+        console.log('whoops');
+      });
+    }  
   }
 
   login() {
@@ -109,8 +118,9 @@ export class AppComponent implements OnInit {
   }
 
   sendMessage() {
-    this.socket.SendMessage(this.messageText, this.channelNames[this.currentChannel]).then((data: any) => {
-      this.channels[this.channelNames.indexOf(data.channel)].messages.push(data.message);
+    console.log(this.channels[this.currentChannel]);
+    this.socket.SendMessage(this.messageText, this.channels[this.currentChannel].id).then((data: any) => {
+      this.channels[this.currentChannel].messages.push(data.message);
       this.messageText = "";
     }).catch(err => {
       console.log(err);

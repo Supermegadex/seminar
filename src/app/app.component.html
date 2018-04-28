@@ -10,14 +10,16 @@
     <fluent-header size="3" *ngIf="currentChannel !== -1">{{channels[currentChannel].name}}</fluent-header>
     <div class="channel-wrapper" *ngIf="enableMessages">
       <fluent-item *ngFor="let message of channels[currentChannel].messages">
+        <fluent-avatar [src]="message.author.email"></fluent-avatar>
+        <small>{{message.author.name}}</small><br>
         {{message.text}}
       </fluent-item>
     </div>
     <div class="start-wrapper" *ngIf="enableIntro">
       <div id="intro-part-1" class="intro" [ngClass]="introPartOneClass" *ngIf="partOneEnabled">
-        <p>Hello! Welcome to <i>Seminar</i>, an easy way to have a fast-paced chat. We need your name and email so others know who you are:</p>
+        <p>Hello! Welcome to <i>Seminar</i>: a Discord-like experience for use on the fly. To get started, Enter your name (and, optionally, your email) to get started.</p>
         <fluent-input [(value)]="name" placeholder="Name" autocomplete="given-name"></fluent-input>
-        <fluent-input [(value)]="email" placeholder="Email" type="email"></fluent-input>
+        <fluent-input [(value)]="email" placeholder="Email (optional)" type="email"></fluent-input>
         <fluent-button (click)="login()">Log In</fluent-button>
       </div>
       <div id="intro-part-2" class="intro" [ngClass]="introPartTwoClass" *ngIf="partTwoEnabled">

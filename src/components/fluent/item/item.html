@@ -1,5 +1,7 @@
 <div class="fluent-item-content" [ngClass]="active ? 'active' : 'inactive'">
+  <ng-content select="fluent-avatar"></ng-content>
   <div class="fluent-item-inner">
-    {{text}}<ng-content></ng-content>
+    {{text}}
+    <ng-content></ng-content>
   </div>
 </div>
