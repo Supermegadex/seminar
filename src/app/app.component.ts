@@ -36,12 +36,18 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.socket.onNewMessage().subscribe(data => {
-      const channelIndex = this.channelNames.indexOf(data.channel);
-      this.channels[channelIndex].messages.push(data.message);
+      console.log(data);
+      this.channels.find(channel => channel.id === data.channel).messages.push(data.message);
     });
 
     this.socket.onNewMember().subscribe(data => {
-      this.people.push([data.name, data.email]);
+      console.log(data.id)
+      console.log(this.people.find(person => person.id === data.id));
+      if (!this.people.find(person => person.id !== data.id)) this.people.push({
+        name: data.name,
+        email: data.email,
+        id: data.id
+      });
     });
 
     this.socket.onNewChannel().subscribe(data => {
@@ -60,7 +66,7 @@ export class AppComponent implements OnInit {
       }).catch(err => {
         console.log('whoops');
       });
-    }  
+    }
   }
 
   login() {
@@ -88,7 +94,13 @@ export class AppComponent implements OnInit {
       this.introPartTwoClass = "dismiss";
       setTimeout(() => {
         this.channels = data.server.channels;
-        this.people = data.server.people.map(member => [member.name, member.email]);
+        this.people = data.server.people.map(member => {
+          return {
+            name: member.name,
+            email: member.email,
+            id: member.id
+          };
+        });
         this.currentChannel = 0;
         this.enableMessages = true;
         this.enableIntro = false;
@@ -106,7 +118,13 @@ export class AppComponent implements OnInit {
       this.introPartTwoClass = "dismiss";
       setTimeout(() => {
         this.channels = data.channels;
-        this.people = data.people.map(member => [member.name, member.email]);
+        this.people = data.people.map(member => {
+          return {
+            name: member.name,
+            email: member.email,
+            id: member.id
+          };
+        });
         this.currentChannel = 0;
         this.enableMessages = true;
         this.enableIntro = false;

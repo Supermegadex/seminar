@@ -16,18 +16,18 @@ export class FluentAvatarComponent implements OnInit {
   private urlRegex = new RegExp(["([a-z]{1,2}tps?):\\/\\/((((?!\\/).)+)(?:(\\/.+\\/))?",
     "(?:(((?!(\\.|$|\\?|#)).)+))?(?:(\\.((?!(\\?|$|#)).)+))?(?:(\\?.+))?(?:(#.+))?)"].join(''));
   url = "";
-  
+
   constructor() {
-    
+
   }
 
   ngOnInit() {
     this.formatSource();
   }
-  
+
   formatSource() {
     if (this.emailRegex.test(this.src)) {
-      this.url = `https://www.gravatar.com/avatar/${md5(this.url)}?d=retro`;
+      this.url = `https://www.gravatar.com/avatar/${md5(this.src)}?d=retro`;
     }
     else if (this.urlRegex.test(this.src)) {
       this.url = this.src;
