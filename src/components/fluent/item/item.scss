@@ -25,7 +25,7 @@ fluent-item {
     transform: scale(.99, .99);
   }
   .fluent-item-content.active {
-    border-left: 4px solid var(--app-primary-color);
+    border-left: 4px solid var(--app-primary-color, #4496CD);
   }
 }
 

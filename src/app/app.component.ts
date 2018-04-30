@@ -41,7 +41,6 @@ export class AppComponent implements OnInit {
     });
 
     this.socket.onNewMember().subscribe(data => {
-      console.log(data.id)
       console.log(this.people.find(person => person.id === data.id));
       if (!this.people.find(person => person.id !== data.id)) this.people.push({
         name: data.name,

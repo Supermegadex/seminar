@@ -14,7 +14,7 @@ fluent-input {
   }
 
   input.border:focus {
-    border: 2px solid var(--app-primary-color);
+    border: 2px solid var(--app-primary-color, #4496CD);
   }
 
   .wrapper {

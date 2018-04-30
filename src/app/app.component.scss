@@ -41,6 +41,8 @@
 
 .channel-wrapper {
   overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
 }
 
 .start-wrapper {
@@ -81,6 +83,7 @@ fluent-item {
   justify-content: flex-end;
   align-content: stretch;
   align-items: flex-end;
+  z-index: 10;
 
   fluent-input {
     flex: 1 1 auto;
