@@ -42,15 +42,24 @@ export class AppComponent implements OnInit {
 
     this.socket.onNewMember().subscribe(data => {
       console.log(this.people.find(person => person.id === data.id));
-      if (!this.people.find(person => person.id !== data.id)) this.people.push({
-        name: data.name,
-        email: data.email,
-        id: data.id
-      });
+      if (!this.people.find(person => person.id === data.id)) {
+        console.log("here");
+        this.people.push({
+          name: data.name,
+          email: data.email,
+          id: data.id
+        });
+      }
     });
 
     this.socket.onNewChannel().subscribe(data => {
-      this.pushChannel(data.name);
+      this.pushChannel(data.name, data._id);
+    });
+
+    this.socket.onMemberLeave().subscribe(id => {
+      const member = this.people.find(person => person.id === id);
+      console.log(member);
+      this.people.splice(this.people.indexOf(member), 1);
     });
 
     console.log(localStorage.getItem('token'));
@@ -146,20 +155,37 @@ export class AppComponent implements OnInit {
   }
 
   newChannel() {
-    this.socket.CreateChannel(this.newChannelName).then((name: any) => {
-      this.pushChannel(name);
+    this.socket.CreateChannel(this.newChannelName).then((data: any) => {
+      console.log(data);
+      this.pushChannel(data.name, data._id);
     }).catch(err => {
       console.log(err);
       console.log('whoops');
     });
   }
 
-  pushChannel(name) {
+  pushChannel(name, id) {
     this.channelNames.push(name);
     this.channels.push({
       name,
-      messages: []
+      messages: [],
+      id
     });
+  }
+
+  handleKeyPress(event, caller) {
+    if (event.key === "Enter") {
+      switch (caller) {
+        case "message":
+          this.sendMessage();
+          break;
+        case "channel":
+          this.newChannel();
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   formatChannels(channels) {

@@ -4,6 +4,10 @@
     <fluent-nav-view [(selection)]="currentChannel">
       <fluent-item *ngFor="let channel of channels" [text]="channel.name"></fluent-item>
     </fluent-nav-view>
+    <div class="footer" *ngIf="enableMessages">
+      <fluent-input placeholder="New Channel" [(value)]="newChannelName" [border]="false" (keypress)="handleKeyPress($event, 'channel')"></fluent-input>
+      <fluent-button (click)="newChannel()" id="channel">Add</fluent-button>
+    </div>
   </fluent-acrylic>
   <fluent-acrylic opacity="9" class="center">
     <fluent-header size="1" [hasSub]="currentChannel !== -1">{{serverName}} <code *ngIf="serverId">{{serverId}}</code></fluent-header>
@@ -39,7 +43,7 @@
       </div>
     </div>
     <div class="footer" *ngIf="enableMessages">
-      <fluent-input placeholder="Message" [(value)]="messageText" [border]="false"></fluent-input>
+      <fluent-input placeholder="Message" [(value)]="messageText" [border]="false" (keypress)="handleKeyPress($event, 'message')"></fluent-input>
       <fluent-button (click)="sendMessage()" id="message">Send</fluent-button>
     </div>
     <div class="test-inputs" hidden>

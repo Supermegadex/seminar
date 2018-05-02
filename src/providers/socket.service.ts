@@ -6,16 +6,24 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class SocketService {
   static loggedIn = false;
+  static inServer = false;
 
   public socket: SocketIOClient.Socket;
   public debug = !environment.production;
+  public serverCode = '';
 
   constructor() {
     this.socket = io(this.debug ? 'localhost:3000' : 'https://seminar-api.now.sh');
     this.socket.on('disconnect', () => {
       if (SocketService.loggedIn) {
         this.socket.emit('login-token', localStorage.getItem('token'), (res, data) => {
-          console.log(res, data);
+          if (res) {
+            if (SocketService.inServer) {
+              this.socket.emit('join-server', this.serverCode, success => {
+                console.log(success);
+              });
+            }
+          }
         });
       }
     });
@@ -54,6 +62,8 @@ export class SocketService {
     return new Promise((resolve, reject) => {
       this.socket.emit('join-server', id, (res: boolean, data?: string) => {
         if (res) {
+          SocketService.inServer = true;
+          this.serverCode = id;
           resolve(data);
         }
         else {
@@ -67,6 +77,8 @@ export class SocketService {
     return new Promise((resolve, reject) => {
       this.socket.emit('create-server', name, (res: boolean, id?: string, server?: any) => {
         if (res) {
+          SocketService.inServer = true;
+          this.serverCode = id;
           resolve({id, server});
         }
         else {
@@ -117,6 +129,14 @@ export class SocketService {
   onNewChannel() {
     return Observable.create(observer => {
       this.socket.on('channel', data => {
+        observer.next(data);
+      });
+    });
+  }
+
+  onMemberLeave() {
+    return Observable.create(observer => {
+      this.socket.on('user-disconnect', data => {
         observer.next(data);
       });
     });
