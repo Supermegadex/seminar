@@ -1,9 +1,10 @@
 fluent-button {
-  background: #ccc;
+  background: #aaa;
   display: inline-block;
 
   button {
     color: inherit;
+    font-size: inherit;
     //font-size: inherit;
     transition: background-color 100ms ease-in-out, transform 100ms ease-in-out;
     //margin: 10px 0;

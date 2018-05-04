@@ -157,6 +157,7 @@ export class AppComponent implements OnInit {
   newChannel() {
     this.socket.CreateChannel(this.newChannelName).then((data: any) => {
       console.log(data);
+      this.newChannelName = "";
       this.pushChannel(data.name, data._id);
     }).catch(err => {
       console.log(err);

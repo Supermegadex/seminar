@@ -24,7 +24,7 @@
         <p>Hello! Welcome to <i>Seminar</i>: a Discord-like experience for use on the fly. To get started, Enter your name (and, optionally, your email*) to get started.</p>
         <fluent-input [(value)]="name" placeholder="Name" autocomplete="given-name"></fluent-input>
         <fluent-input [(value)]="email" placeholder="Email* (optional)" type="email"></fluent-input>
-        <fluent-button (click)="login()">Log In</fluent-button><br>
+        <fluent-button (click)="login()" class="fr">Log In</fluent-button><br><br><br>
         <small>* We use your email to generate your profile picture. If you want to customize it, go to <a href="https://gravatar.com">gravatar.com</a>. You may also input an image URL.</small>
       </div>
       <div id="intro-part-2" class="intro" [ngClass]="introPartTwoClass" *ngIf="partTwoEnabled">
@@ -32,13 +32,13 @@
           <fluent-header size="2">Join a Server</fluent-header>
           <p>If you want to join another person's server, put their code below and hit join:</p>
           <fluent-input placeholder="Server Code" [(value)]="joinServerId"></fluent-input>
-          <fluent-button (click)="join()">Join</fluent-button>
+          <fluent-button (click)="join()" class="fr">Join</fluent-button>
         </div>
         <div class="intro-2-side-right">
           <fluent-header size="2">Create a Server</fluent-header>
           <p>If you want to create a new server to share with others, enter the name of it below and select create:</p>
           <fluent-input placeholder="Server Name" [(value)]="newServerName"></fluent-input>
-          <fluent-button (click)="create()">Create</fluent-button>
+          <fluent-button (click)="create()" class="fr">Create</fluent-button>
         </div>
       </div>
     </div>
@@ -46,23 +46,16 @@
       <fluent-input placeholder="Message" [(value)]="messageText" [border]="false" (keypress)="handleKeyPress($event, 'message')"></fluent-input>
       <fluent-button (click)="sendMessage()" id="message">Send</fluent-button>
     </div>
-    <div class="test-inputs" hidden>
-      <input title="Name" [(ngModel)]="name" name="name" placeholder="Name">
-      <input title="Email" [(ngModel)]="email" name="email" type="email" placeholder="Email">
-      <button (click)="login()">Test Login</button><br>
-      <input title="New Server Name" [(ngModel)]="newServerName" name="sn" placeholder="Server Name">
-      <button (click)="create()">Test Create</button><br>
-      <input title="Join Server Id" [(ngModel)]="joinServerId" name="id" placeholder="Server Code">
-      <button (click)="join()">Test Join</button><br>
-      <input title="Send Message" [(ngModel)]="messageText" name="msg" placeholder="Message">
-      <input title="Channel" [(ngModel)]="channelToSendMessage" name="chnl" placeholder="Channel Name">
-      <button (click)="sendMessage()">Test Send Message</button><br>
-      <input title="New Channel Name" [(ngModel)]="newChannelName" name="newchnl" placeholder="New Channel Name">
-      <button (click)="newChannel()">Test Create New Channel</button>
-    </div>
   </fluent-acrylic>
-  <fluent-acrylic opacity="7">
-    <fluent-header>People - {{name}}</fluent-header>
-    <fluent-item *ngFor="let person of people">{{person.name}}</fluent-item>
+  <fluent-acrylic opacity="7" class="right">
+    <fluent-header>People</fluent-header>
+    <div class="people-container">
+      <fluent-item *ngFor="let person of people">{{person.name}}</fluent-item>
+    </div>
+    <div class="footer">
+      <span class="username">{{name}}</span>
+      <div class="space"></div>
+      <fluent-button>Settings</fluent-button>
+    </div>
   </fluent-acrylic>
 </div>

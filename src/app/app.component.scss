@@ -26,7 +26,7 @@
   height: 100vh;
 }
 
-.center, .left {
+.center, .left, .right {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -35,8 +35,17 @@
   align-items: stretch;
 }
 
-.channel-wrapper, .start-wrapper {
+.channel-wrapper, .start-wrapper, .people-container, .space {
   flex: 1 1 auto;
+}
+
+.username {
+  font-size: 1.25em;
+  padding: 10px;
+}
+
+.fr {
+  float: right;
 }
 
 .channel-wrapper {
