@@ -55,7 +55,8 @@
     <div class="footer">
       <span class="username">{{name}}</span>
       <div class="space"></div>
-      <fluent-button>Settings</fluent-button>
+      <fluent-flyout [element]="settingsButton"></fluent-flyout>
+      <fluent-button #settingsButton><fluent-icon name="Settings"></fluent-icon></fluent-button>
     </div>
   </fluent-acrylic>
 </div>

@@ -7,8 +7,22 @@
        url('/assets/fonts/segoeui.woff2') format('woff2'), /* Super Modern Browsers */
        url('/assets/fonts/segoeui.woff') format('woff'), /* Pretty Modern Browsers */
        url('/assets/fonts/segoeui.ttf')  format('truetype'), /* Safari, Android, iOS */
-       url('/assets/fonts/segoeui.svg#svgFontName') format('svg'); /* Legacy iOS */
+       url('/assets/fonts/segoeui.svg#SegoeUi') format('svg'); /* Legacy iOS */
 }
+
+@font-face {
+    font-family: 'Segoe MDL2 Assets';
+    src: url('/assets/fonts/SegoeMDL2Assets.eot');
+    src: url('/assets/fonts/SegoeMDL2Assets.eot?#iefix') format('embedded-opentype'),
+        url('/assets/fonts/SegoeMDL2Assets.woff2') format('woff2'),
+        url('/assets/fonts/SegoeMDL2Assets.woff') format('woff'),
+        url('/assets/fonts/SegoeMDL2Assets.ttf') format('truetype'),
+        url('/assets/fonts/SegoeMDL2Assets.svg#SegoeMDL2Assets') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
 
 :root {
   --app-primary-color: #4496CD;
