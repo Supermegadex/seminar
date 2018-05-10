@@ -13,12 +13,10 @@ import { FluentFlyoutComponent } from './flyout/flyout';
 
 @NgModule({
   declarations: [
-    FluentAcrylicComponent,
     FluentNavViewComponent,
     FluentItemComponent,
     FluentHeaderComponent,
     FluentInputComponent,
-    FluentButtonComponent,
     FluentAvatarComponent,
     FluentIconComponent,
     FluentFlyoutComponent
@@ -29,12 +27,10 @@ import { FluentFlyoutComponent } from './flyout/flyout';
   ],
   exports: [
     CommonModule,
-    FluentAcrylicComponent,
     FluentNavViewComponent,
     FluentItemComponent,
     FluentHeaderComponent,
     FluentInputComponent,
-    FluentButtonComponent,
     FluentAvatarComponent,
     FluentIconComponent,
     FluentFlyoutComponent

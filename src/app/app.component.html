@@ -1,62 +1,64 @@
-<div class="main light">
-  <fluent-acrylic opacity="7" class="left">
-    <fluent-header>Channels</fluent-header>
-    <fluent-nav-view [(selection)]="currentChannel">
-      <fluent-item *ngFor="let channel of channels" [text]="channel.name"></fluent-item>
-    </fluent-nav-view>
-    <div class="footer" *ngIf="enableMessages">
-      <fluent-input placeholder="New Channel" [(value)]="newChannelName" [border]="false" (keypress)="handleKeyPress($event, 'channel')"></fluent-input>
-      <fluent-button (click)="newChannel()" id="channel">Add</fluent-button>
-    </div>
-  </fluent-acrylic>
-  <fluent-acrylic opacity="9" class="center">
-    <fluent-header size="1" [hasSub]="currentChannel !== -1">{{serverName}} <code *ngIf="serverId">{{serverId}}</code></fluent-header>
-    <fluent-header size="3" *ngIf="currentChannel !== -1">{{channels[currentChannel].name}}</fluent-header>
-    <div class="channel-wrapper" *ngIf="enableMessages">
-      <fluent-item *ngFor="let message of channels[currentChannel].messages">
-        <fluent-avatar [src]="message.author.email"></fluent-avatar>
-        <small>{{message.author.name}}</small><br>
-        {{message.text}}
-      </fluent-item>
-    </div>
-    <div class="start-wrapper" *ngIf="enableIntro">
-      <div id="intro-part-1" class="intro" [ngClass]="introPartOneClass" *ngIf="partOneEnabled">
-        <p>Hello! Welcome to <i>Seminar</i>: a Discord-like experience for use on the fly. To get started, Enter your name (and, optionally, your email*) to get started.</p>
-        <fluent-input [(value)]="name" placeholder="Name" autocomplete="given-name"></fluent-input>
-        <fluent-input [(value)]="email" placeholder="Email* (optional)" type="email"></fluent-input>
-        <fluent-button (click)="login()" class="fr">Log In</fluent-button><br><br><br>
-        <small>* We use your email to generate your profile picture. If you want to customize it, go to <a href="https://gravatar.com">gravatar.com</a>. You may also input an image URL.</small>
+<fluent-content class="light" theme="light" background-image="/assets/lochleven.jpg">
+  <div class="main">
+    <fluent-acrylic tint-opacity="7" class="left">
+      <fluent-header>Channels</fluent-header>
+      <fluent-nav-view [(selection)]="currentChannel">
+        <fluent-item *ngFor="let channel of channels" [text]="channel.name"></fluent-item>
+      </fluent-nav-view>
+      <div class="footer" *ngIf="enableMessages">
+        <fluent-input placeholder="New Channel" [(value)]="newChannelName" [border]="false" (keypress)="handleKeyPress($event, 'channel')"></fluent-input>
+        <fluent-button (click)="newChannel()" id="channel">Add</fluent-button>
       </div>
-      <div id="intro-part-2" class="intro" [ngClass]="introPartTwoClass" *ngIf="partTwoEnabled">
-        <div class="intro-2-side-left">
-          <fluent-header size="2">Join a Server</fluent-header>
-          <p>If you want to join another person's server, put their code below and hit join:</p>
-          <fluent-input placeholder="Server Code" [(value)]="joinServerId"></fluent-input>
-          <fluent-button (click)="join()" class="fr">Join</fluent-button>
+    </fluent-acrylic>
+    <fluent-acrylic tint-opacity="9" class="center">
+      <fluent-header size="1" [hasSub]="currentChannel !== -1">{{serverName}} <code *ngIf="serverId">{{serverId}}</code></fluent-header>
+      <fluent-header size="3" *ngIf="currentChannel !== -1">{{channels[currentChannel].name}}</fluent-header>
+      <div class="channel-wrapper" *ngIf="enableMessages">
+        <fluent-item *ngFor="let message of channels[currentChannel].messages">
+          <fluent-avatar [src]="message.author.email"></fluent-avatar>
+          <small>{{message.author.name}}</small><br>
+          {{message.text}}
+        </fluent-item>
+      </div>
+      <div class="start-wrapper" *ngIf="enableIntro">
+        <div id="intro-part-1" class="intro" [ngClass]="introPartOneClass" *ngIf="partOneEnabled">
+          <p>Hello! Welcome to <i>Seminar</i>: a Discord-like experience for use on the fly. To get started, Enter your name (and, optionally, your email*) to get started.</p>
+          <fluent-input [(value)]="name" placeholder="Name" autocomplete="given-name"></fluent-input>
+          <fluent-input [(value)]="email" placeholder="Email* (optional)" type="email"></fluent-input>
+          <fluent-button (click)="login()" class="fr">Log In</fluent-button><br><br><br>
+          <small>* We use your email to generate your profile picture. If you want to customize it, go to <a href="https://gravatar.com">gravatar.com</a>. You may also input an image URL.</small>
         </div>
-        <div class="intro-2-side-right">
-          <fluent-header size="2">Create a Server</fluent-header>
-          <p>If you want to create a new server to share with others, enter the name of it below and select create:</p>
-          <fluent-input placeholder="Server Name" [(value)]="newServerName"></fluent-input>
-          <fluent-button (click)="create()" class="fr">Create</fluent-button>
+        <div id="intro-part-2" class="intro" [ngClass]="introPartTwoClass" *ngIf="partTwoEnabled">
+          <div class="intro-2-side-left">
+            <fluent-header size="2">Join a Server</fluent-header>
+            <p>If you want to join another person's server, put their code below and hit join:</p>
+            <fluent-input placeholder="Server Code" [(value)]="joinServerId"></fluent-input>
+            <fluent-button (click)="join()" class="fr">Join</fluent-button>
+          </div>
+          <div class="intro-2-side-right">
+            <fluent-header size="2">Create a Server</fluent-header>
+            <p>If you want to create a new server to share with others, enter the name of it below and select create:</p>
+            <fluent-input placeholder="Server Name" [(value)]="newServerName"></fluent-input>
+            <fluent-button (click)="create()" class="fr">Create</fluent-button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="footer" *ngIf="enableMessages">
-      <fluent-input placeholder="Message" [(value)]="messageText" [border]="false" (keypress)="handleKeyPress($event, 'message')"></fluent-input>
-      <fluent-button (click)="sendMessage()" id="message">Send</fluent-button>
-    </div>
-  </fluent-acrylic>
-  <fluent-acrylic opacity="7" class="right">
-    <fluent-header>People</fluent-header>
-    <div class="people-container">
-      <fluent-item *ngFor="let person of people">{{person.name}}</fluent-item>
-    </div>
-    <div class="footer">
-      <span class="username">{{name}}</span>
-      <div class="space"></div>
-      <fluent-flyout [element]="settingsButton"></fluent-flyout>
-      <fluent-button #settingsButton><fluent-icon name="Settings"></fluent-icon></fluent-button>
-    </div>
-  </fluent-acrylic>
-</div>
+      <div class="footer" *ngIf="enableMessages">
+        <fluent-input placeholder="Message" [(value)]="messageText" [border]="false" (keypress)="handleKeyPress($event, 'message')"></fluent-input>
+        <fluent-button (click)="sendMessage()" id="message">Send</fluent-button>
+      </div>
+    </fluent-acrylic>
+    <fluent-acrylic tint-opacity="7" class="right">
+      <fluent-header>People</fluent-header>
+      <div class="people-container">
+        <fluent-item *ngFor="let person of people">{{person.name}}</fluent-item>
+      </div>
+      <div class="footer">
+        <span class="username">{{name}}</span>
+        <div class="space"></div>
+        <fluent-flyout [element]="settingsButton"></fluent-flyout>
+        <fluent-button #settingsButton><fluent-icon name="Settings"></fluent-icon></fluent-button>
+      </div>
+    </fluent-acrylic>
+  </div>
+</fluent-content>

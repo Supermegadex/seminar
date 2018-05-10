@@ -34,14 +34,5 @@ body {
   font-family: "Segoe UI", Arial, sans-serif;
 }
 
-body, fluent-acrylic::before {
-  background: url("/assets/lochleven.jpg") center/cover;
-  background-attachment: fixed;
-}
-
-.dark {
-  color: white;
-}
-
 $primary: #3489C3;
 $theme: light;

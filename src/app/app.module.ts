@@ -1,6 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+
+// import 'fluent-web-components';
 
 import { AppComponent } from './app.component';
 import { FluentModule } from '../components/fluent/fluent.module';
@@ -16,6 +18,7 @@ import { FluentModule } from '../components/fluent/fluent.module';
     FluentModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }
