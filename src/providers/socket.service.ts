@@ -13,7 +13,7 @@ export class SocketService {
   public serverCode = '';
 
   constructor() {
-    this.socket = io(this.debug ? 'localhost:3000' : 'https://seminar-api.now.sh');
+    this.socket = io(this.debug ? 'localhost:3000' : 'https://api.back-chat.com');
     this.socket.on('disconnect', () => {
       if (SocketService.loggedIn) {
         this.socket.emit('login-token', localStorage.getItem('token'), (res, data) => {

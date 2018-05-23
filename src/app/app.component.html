@@ -22,7 +22,7 @@
       </div>
       <div class="start-wrapper" *ngIf="enableIntro">
         <div id="intro-part-1" class="intro" [ngClass]="introPartOneClass" *ngIf="partOneEnabled">
-          <p>Hello! Welcome to <i>Seminar</i>: a Discord-like experience for use on the fly. To get started, Enter your name (and, optionally, your email*) to get started.</p>
+          <p>Hello! Welcome to <i>Back Chat</i>: a Discord-like experience for use on the fly. To get started, Enter your name (and, optionally, your email*) to get started.</p>
           <fluent-input [(value)]="name" placeholder="Name" autocomplete="given-name"></fluent-input>
           <fluent-input [(value)]="email" placeholder="Email* (optional)" type="email"></fluent-input>
           <fluent-button (click)="login()" class="fr">Log In</fluent-button><br><br><br>
